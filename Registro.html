@@ -1,0 +1,102 @@
+<?php
+// Verificar si se ha enviado el formulario
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Aquí iría el código para procesar el formulario de registro y guardar los datos en la base de datos
+    
+    // Redireccionar al usuario a la página de inicio
+    header("Location: index.html");
+    exit(); // Asegura que el script se detenga después de redireccionar
+}
+?>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro - Tienda de Ropa</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  
+  <style>
+    .bg {
+      background-image: url(imagenes/10-Deep-ropa-urbana-hombre-768x480.jpg);
+      background-position: center center;
+      background-size: cover;
+      height: 100vh;
+    }
+    .registro-container {
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 10px;
+      box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+    .registro-title {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .registro-form {
+      margin-top: 20px;
+    }
+    .form-control {
+      font-size: 14px;
+    }
+    .btn-register {
+      font-size: 16px;
+      padding: 12px;
+    }
+    .link-login {
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col bg">
+        <div class="container h-100">
+          <div class="row align-items-center h-100">
+            <div class="col-md-6 offset-md-3">
+              <div class="registro-container">
+                <div class="text-end">
+                  <img src="imagenes/logo.png" width="100" alt="">
+                </div>
+
+                <h2 class="registro-title text-center py-4">Regístrate</h2>
+
+                <!-- REGISTRO -->
+                <form class="registro-form" action="registro.php" method="post">
+                  <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="email" class="form-label">Correo electrónico</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-register w-100">Registrarse</button>
+
+                  <div class="my-3 text-center">
+                    <span class="link-login">¿Ya tienes cuenta? <a href="index.html">Inicia Sesión</a></span>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Bootstrap JS y dependencias de jQuery y Popper.js -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>  
+</html>
