@@ -3,6 +3,7 @@ import { create, findAll, remove, update } from "../services/ProductService";
 import { ProductGrid } from "./ProductGrid";
 import { PropTypes } from 'prop-types';
 import { ProductForm } from "./ProductForm";
+import { useAlert } from './alert/AlertContext';
 
 export const ProductApp = ({ title }) => {
 
@@ -16,6 +17,8 @@ export const ProductApp = ({ title }) => {
         category: ''
     })
 
+    const { addAlert } = useAlert();
+
     const getProducts = async () => {
         const result = await findAll();
         setProducts(result.data._embedded.products);
@@ -27,25 +30,38 @@ export const ProductApp = ({ title }) => {
 
     const handlerAddProduct = async (product) => {
         console.log(products);
-        if (product.id > 0) {
-            const response = await update(product);
-            
-            setProducts(products.map(prod => {
-                if (prod.id == response.data.id) {
-                    return { ...response.data }
-                }
-                return prod;
+        try {
+            if (product.id > 0) {
+                const response = await update(product);
 
-            }));
-        } else {
-            product.id = products.length + 1;
-            const response = await create(product);
-            setProducts([...products, { ...response.data }]);
+                setProducts(products.map(prod => {
+                    if (prod.id == response.data.id) {
+                        return { ...response.data }
+                    }
+                    addAlert('success',  'Se ha actualizado el producto con éxito');
+                    return prod;
+
+                }));
+            } else {
+                product.id = products.length + 1;
+                const response = await create(product);
+                setProducts([...products, { ...response.data }]);
+                addAlert('success', 'Se ha creado el producto con éxito');
+            }
+        } catch (error) {
+            addAlert('error', 'Error al agregar/modificar el producto:');
         }
+
     }
     const handlerRemoveProduct = async (id) => {
-        await remove(id);
-        setProducts(products.filter(product => product.id != id));
+        try {
+            await remove(id);
+            setProducts(products.filter(product => product.id != id));
+            addAlert('success', 'Se ha eliminado el producto con éxito');
+        } catch (error) {
+            addAlert('error', 'Error al eliminar el producto:');
+        }
+
     }
 
     const handlerProductSelected = (product) => {
@@ -56,7 +72,7 @@ export const ProductApp = ({ title }) => {
             <h2>{title}</h2>
             <div className="row">
                 <div className="col">
-                    <ProductForm handlerAdd={handlerAddProduct} productSelected={productSelected} />
+                    <ProductForm handlerAdd={handlerAddProduct} productSelected={productSelected} alert={alert}/>
                 </div>
                 <div className="col">
                     {

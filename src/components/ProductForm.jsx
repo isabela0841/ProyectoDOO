@@ -1,6 +1,7 @@
 import { TextField, MenuItem } from "@mui/material";
 import { useEffect, useState } from "react"
 import { findAll } from "../services/CategoryService";
+import { useAlert } from './alert/AlertContext';
 
 const initialDataForm = {
     id: 0,
@@ -36,17 +37,18 @@ export const ProductForm = ({ productSelected, handlerAdd }) => {
             ...form,
             category: selectedCategory
         })
-      };
+    };
+
+    const { addAlert } = useAlert();
 
     return (
         <form onSubmit={(event) => {
             event.preventDefault();
-            console.log(name, price, mark, category);
             if (!name || !price || !mark || !category) {
-                alert('Debe de completar los datos del formulario!')
+                addAlert('warning','Debe de completar los datos del formulario!')
                 return;
             }
-            // console.log(form);
+            console.log(form);
             handlerAdd(form);
             setForm(initialDataForm);
         }}>
