@@ -41,7 +41,7 @@ export const Navbar = () => {
 					</Typography>
 					{state?.logged ? (
 						<><span className='username'>{state?.name}</span>
-						<Button component={Link} to='/login' color="inherit">cerrar sesion</Button>
+						<Button component={Link} to='/login' color="inherit">cerrar sesion</Button></>
 					) : (
 						<><Button component={Link} to='/login' color="inherit">Login</Button><Button component={Link} to='/register' color="inherit">Registrarse</Button></>
 					)}
