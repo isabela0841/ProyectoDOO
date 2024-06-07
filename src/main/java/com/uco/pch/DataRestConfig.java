@@ -7,6 +7,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 import com.uco.pch.entities.Category;
 import com.uco.pch.entities.Product;
+import com.uco.pch.entities.User;
 
 @Configuration
 public class DataRestConfig implements RepositoryRestConfigurer{
@@ -15,6 +16,7 @@ public class DataRestConfig implements RepositoryRestConfigurer{
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config, CorsRegistry cors) {
         config.exposeIdsFor(Product.class);
         config.exposeIdsFor(Category.class);
+        config.exposeIdsFor(User.class);
     }
 
 }
