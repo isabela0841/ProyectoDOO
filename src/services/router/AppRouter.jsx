@@ -2,11 +2,11 @@ import { Route, Routes } from 'react-router-dom';
 import { Navbar } from '../../components/Navbar';
 import {
 	HomePage,
-	DashboardPage,
 	LoginPage,
 	RegisterPage,
 } from '../../pages';
 import { PrivateRoute } from './PrivateRoute';
+import { ProductApp } from '../../pages/ProductApp';
 
 export const AppRouter = () => {
 	return (
@@ -20,7 +20,7 @@ export const AppRouter = () => {
 						path='dashboard'
 						element={
 							<PrivateRoute>
-								<DashboardPage />
+								<ProductApp  title='Lista de productos!'/>
 							</PrivateRoute>
 						}
 					/>

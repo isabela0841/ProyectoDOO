@@ -1,76 +1,83 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
 import { useForm } from '../hook/userForm';
+import { findAll } from '../services/UserService';
+import { useAlert } from '../components/alert/AlertContext';
 
 export const LoginPage = () => {
 	const navigate = useNavigate();
 
-	const { name, email, password, onInputChange, onResetForm } =
+	const { addAlert } = useAlert();
+
+	const { email, password, onInputChange, onResetForm } =
 		useForm({
-			name: '',
 			email: '',
 			password: '',
 		});
 
-	const onLogin = e => {
+	const onLogin = async e => {
 		e.preventDefault();
 
-		navigate('/dashboard', {
-			replace: true,
-			state: {
-				logged: true,
-				name,
-			},
-		});
+		const response = await findAll();
 
-		onResetForm();
+		response.data._embedded.users.map(user => {
+			console.log(user);
+			if (user.email == email && user.password == password) {
+				addAlert('success', 'Se ha logueado con exito, bienvenido ' + user.username);
+				navigate('/dashboard', {
+					replace: true,
+					state: {
+						logged: true,
+						email,
+					},
+				});
+
+			} else {
+				addAlert('error', 'Usuario y/o contraseña incorrectos!');
+			}
+			onResetForm();
+		})
 	};
 
 	return (
-		<div className='wrapper'>
+		<Card sx={{ minWidth: 275 }}>
 			<form onSubmit={onLogin}>
-				<h1>Iniciar Sesión</h1>
+				<CardContent>
 
-				<div className='input-group'>
-					<input
-						type='text'
-						name='name'
-						id='name'
-						value={name}
-						onChange={onInputChange}
-						required
-						autoComplete='off'
-					/>
-					<label htmlFor='name'>Nombre:</label>
-				</div>
+					<h1>Iniciar Sesión</h1>
 
-				<div className='input-group'>
-					<input
-						type='email'
-						name='email'
-						id='email'
-						value={email}
-						onChange={onInputChange}
-						required
-						autoComplete='off'
-					/>
-					<label htmlFor='email'>Email:</label>
-				</div>
-				<div className='input-group'>
-					<input
-						type='password'
-						name='password'
-						id='password'
-						value={password}
-						onChange={onInputChange}
-						required
-						autoComplete='off'
-					/>
-					<label htmlFor='password'>Contraseña:</label>
-				</div>
+					<div className='input-group'>
+						<input
+							type='email'
+							name='email'
+							id='email'
+							value={email}
+							onChange={onInputChange}
+							required
+							autoComplete='off' />
+						<label htmlFor='email'>Email:</label>
+					</div>
+					<div className='input-group'>
+						<input
+							type='password'
+							name='password'
+							id='password'
+							value={password}
+							onChange={onInputChange}
+							required
+							autoComplete='off' />
+						<label htmlFor='password'>Contraseña:</label>
+					</div>
+				</CardContent>
+				<CardActions>
+					<Button variant="contained" size="small" type='submit'>Iniciar Sesión</Button>
 
-				<button>Entrar</button>
+				</CardActions>
 			</form>
-		</div>
+		</Card>
 	);
 };

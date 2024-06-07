@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { create, findAll, remove, update } from "../services/ProductService";
-import { ProductGrid } from "./ProductGrid";
+import { ProductGrid } from "../components/ProductGrid";
 import { PropTypes } from 'prop-types';
-import { ProductForm } from "./ProductForm";
-import { useAlert } from './alert/AlertContext';
+import { ProductForm } from "../components/ProductForm";
+import { useAlert } from '../components/alert/AlertContext';
 
 export const ProductApp = ({ title }) => {
 

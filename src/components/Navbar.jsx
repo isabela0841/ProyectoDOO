@@ -5,12 +5,17 @@ import {
 	useLocation,
 	useNavigate,
 } from 'react-router-dom';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
 
 export const Navbar = () => {
 	const { state } = useLocation();
 	const navigate = useNavigate();
-
-	console.log(state);
 
 	const onLogout = () => {
 		navigate('/login', {
@@ -19,28 +24,30 @@ export const Navbar = () => {
 	};
 
 	return (
-		<>
-			<header>
-				<h1>
-					<Link to='/'>Logo</Link>
-				</h1>
-
-				{state?.logged ? (
-					<div className='user'>
-						<span className='username'>{state?.name}</span>
-						<button className='btn-logout' onClick={onLogout}>
-							Cerrar sesión
-						</button>
-					</div>
-				) : (
-					<nav>
-						<Link to='/login'>Iniciar sesión</Link>
-						<Link to='/register'>Registrarse</Link>
-					</nav>
-				)}
-			</header>
-
+		<Box sx={{ flexGrow: 1 }}>
+			<AppBar position="static">
+				<Toolbar>
+					<IconButton
+						size="large"
+						edge="start"
+						color="inherit"
+						aria-label="menu"
+						sx={{ mr: 2 }}
+					>
+						<MenuIcon />
+					</IconButton>
+					<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+						PCH
+					</Typography>
+					{state?.logged ? (
+						<><span className='username'>{state?.name}</span><Button color="inherit">
+							<Link to='/login'>cerrar sesion</Link></Button></>
+					) : (
+						<><Button component={Link} to='/login' color="inherit">Login</Button><Button component={Link} to='/register' color="inherit">Registrarse</Button></>
+					)}
+				</Toolbar>
+			</AppBar >
 			<Outlet />
-		</>
+		</Box >
 	);
-};
+}
