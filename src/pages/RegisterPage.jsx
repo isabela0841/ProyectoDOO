@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useForm } from '../hook/useForm';
+import { useForm } from '../hook/userForm';
 
 export const RegisterPage = () => {
 	const navigate = useNavigate();

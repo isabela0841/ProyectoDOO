@@ -1,11 +1,11 @@
 import { Route, Routes } from 'react-router-dom';
-import { Navbar } from '../Navbar';
+import { Navbar } from '../../components/Navbar';
 import {
 	HomePage,
 	DashboardPage,
 	LoginPage,
 	RegisterPage,
-} from '../pages';
+} from '../../pages';
 import { PrivateRoute } from './PrivateRoute';
 
 export const AppRouter = () => {
