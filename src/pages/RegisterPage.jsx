@@ -3,7 +3,18 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from '../hook/userForm';
 import { create, findAll, update } from '../services/UserService';
 import { useAlert } from '../components/alert/AlertContext';
-import { bool } from 'prop-types';
+import EmailIcon from '@mui/icons-material/Email';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import FilledInput from '@mui/material/FilledInput';
+import InputAdornment from '@mui/material/InputAdornment';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import IconButton from '@mui/material/IconButton';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 
 export const RegisterPage = () => {
 	const navigate = useNavigate();
@@ -11,6 +22,14 @@ export const RegisterPage = () => {
 	const [users, setUsers] = useState([]);
 
 	const { addAlert } = useAlert();
+
+	const [showPassword, setShowPassword] = React.useState(false);
+
+	const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+	const handleMouseDownPassword = (event) => {
+		event.preventDefault();
+	};
 
 	const { username, email, password, onInputChange, onResetForm } =
 		useForm({
@@ -59,50 +78,86 @@ export const RegisterPage = () => {
 	};
 
 	return (
-		<div className='wrapper'>
+		<Card sx={{ minWidth: 275, display: 'flex', justifyContent: 'center' }}>
 			<form onSubmit={onRegister}>
-				<h1>Registrarse</h1>
+				<CardContent>
 
-				<div className='input-group'>
-					<input
-						type='text'
-						name='username'
-						id='username'
-						value={username}
-						onChange={onInputChange}
-						required
-						autoComplete='off'
-					/>
-					<label htmlFor='name'>Nombre:</label>
-				</div>
+					<h1>Registro</h1>
 
-				<div className='input-group'>
-					<input
-						type='email'
-						name='email'
-						id='email'
-						value={email}
-						onChange={onInputChange}
-						required
-						autoComplete='off'
-					/>
-					<label htmlFor='email'>Email:</label>
-				</div>
-				<div className='input-group'>
-					<input
-						type='password'
-						name='password'
-						id='password'
-						value={password}
-						onChange={onInputChange}
-						required
-						autoComplete='off'
-					/>
-					<label htmlFor='password'>Contraseña:</label>
-				</div>
-
-				<button>Registrarse</button>
+					<Box sx={{ display: 'flex', alignItems: 'flex-end', margin: '0px; 20px', marginBottom: '20px' }}>
+						<FilledInput
+							placeholder="Nombre de usuario"
+							variant="filled"
+							type='username'
+							name='username'
+							id='username'
+							value={username}
+							onChange={onInputChange}
+							required
+							autoComplete='off' 
+							endAdornment={
+								<InputAdornment position="end">
+									<IconButton
+										aria-label="email"
+										edge="end"
+										disabled
+									>
+										<AssignmentIndIcon/>
+									</IconButton>
+								</InputAdornment>
+							}/>
+					</Box>
+					<Box sx={{ display: 'flex', alignItems: 'flex-end', margin: '0px; 20px', marginBottom: '20px' }}>
+						<FilledInput
+							placeholder="Email"
+							variant="filled"
+							type='email'
+							name='email'
+							id='email'
+							value={email}
+							onChange={onInputChange}
+							required
+							autoComplete='off' 
+							endAdornment={
+								<InputAdornment position="end">
+									<IconButton
+										aria-label="email"
+										edge="end"
+										disabled
+									>
+										<EmailIcon/>
+									</IconButton>
+								</InputAdornment>
+							}/>
+					</Box>
+					<Box sx={{ display: 'flex', alignItems: 'flex-end', margin: '0px; 20px', marginBottom: '20px' }}>
+						<FilledInput
+							id="outlined-adornment-password"
+							type={showPassword ? 'text' : 'password'}
+							endAdornment={
+								<InputAdornment position="end">
+									<IconButton
+										aria-label="toggle password visibility"
+										onClick={handleClickShowPassword}
+										onMouseDown={handleMouseDownPassword}
+										edge="end"
+									>
+										{showPassword ? <VisibilityOff /> : <Visibility />}
+									</IconButton>
+								</InputAdornment>
+							}
+							placeholder="Password"
+							name='password'
+							value={password}
+							onChange={onInputChange}
+							required
+							autoComplete='off'
+						/>
+					</Box>
+					<Button variant="contained" size="small" type='submit'>Registrarse</Button>
+				</CardContent>
+					
 			</form>
-		</div>
+		</Card>
 	);
 };
