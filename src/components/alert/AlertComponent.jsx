@@ -4,7 +4,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import './alertStyle.css';
 
 const AlertsComponent = ({ alerts, removeAlert }) => {
-  console.log(alerts);
   return (
     <div className="alerts-root">
       {alerts.map((alert, index) => (

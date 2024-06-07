@@ -28,8 +28,7 @@ export default function AlertDialogSlide({open, onClose, title, text, onConfirm}
   };
 
   return (
-    <React.Fragment>
-      <Dialog
+    <Dialog
         fullScreen={fullScreen}
         open={open}
         TransitionComponent={Transition}
@@ -48,6 +47,5 @@ export default function AlertDialogSlide({open, onClose, title, text, onConfirm}
           <Button onClick={handleConfirm}>Confirmar</Button>
         </DialogActions>
       </Dialog>
-    </React.Fragment>
   );
 }

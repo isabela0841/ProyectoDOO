@@ -7,7 +7,9 @@ import { AlertProvider } from './components/alert/AlertContext.jsx'
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <AlertProvider>
-      <ProductApp title={'Lista de Productos!'} />
+      <BrowserRouter>
+        <App/>
+      </BrowserRouter>
     </AlertProvider>
   </React.StrictMode>,
 )

@@ -19,9 +19,9 @@ export const ProductGrid = ({ handlerProductSelected, handlerRemove, products = 
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                {products.map(product => {
-                     return <ProductDetail handlerProductSelected={handlerProductSelected} handlerRemove={handlerRemove} product={product} key={product.name} />
-                })}
+                    {products.map(product => {
+                        return <ProductDetail handlerProductSelected={handlerProductSelected} handlerRemove={handlerRemove} product={product} key={product.name} />
+                    })}
                 </TableBody>
             </Table>
         </TableContainer>
