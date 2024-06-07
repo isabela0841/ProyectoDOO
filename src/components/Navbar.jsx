@@ -40,8 +40,8 @@ export const Navbar = () => {
 						PCH
 					</Typography>
 					{state?.logged ? (
-						<><span className='username'>{state?.name}</span><Button color="inherit">
-							<Link to='/login'>cerrar sesion</Link></Button></>
+						<><span className='username'>{state?.name}</span>
+						<Button component={Link} to='/login' color="inherit">cerrar sesion</Button>
 					) : (
 						<><Button component={Link} to='/login' color="inherit">Login</Button><Button component={Link} to='/register' color="inherit">Registrarse</Button></>
 					)}
