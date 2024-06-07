@@ -4,6 +4,15 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
+import FilledInput from '@mui/material/FilledInput';
+import InputLabel from '@mui/material/InputLabel';
+import InputAdornment from '@mui/material/InputAdornment';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import IconButton from '@mui/material/IconButton';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useForm } from '../hook/userForm';
 import { findAll } from '../services/UserService';
 import { useAlert } from '../components/alert/AlertContext';
@@ -12,6 +21,14 @@ export const LoginPage = () => {
 	const navigate = useNavigate();
 
 	const { addAlert } = useAlert();
+
+	const [showPassword, setShowPassword] = React.useState(false);
+
+	const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+	const handleMouseDownPassword = (event) => {
+		event.preventDefault();
+	};
 
 	const { email, password, onInputChange, onResetForm } =
 		useForm({
@@ -44,39 +61,54 @@ export const LoginPage = () => {
 	};
 
 	return (
-		<Card sx={{ minWidth: 275 }}>
+		<Card sx={{ minWidth: 275, display: 'flex', justifyContent: 'center' }}>
 			<form onSubmit={onLogin}>
 				<CardContent>
 
 					<h1>Iniciar Sesión</h1>
 
-					<div className='input-group'>
-						<input
+					<Box sx={{ display: 'flex', alignItems: 'flex-end', margin: '0px; 20px', marginBottom: '20px' }}>
+						<FilledInput
+							placeholder="Email"
+							variant="filled"
 							type='email'
 							name='email'
 							id='email'
 							value={email}
 							onChange={onInputChange}
 							required
-							autoComplete='off' />
-						<label htmlFor='email'>Email:</label>
-					</div>
-					<div className='input-group'>
-						<input
-							type='password'
+							autoComplete='off' 
+							endAdornment={
+								<AccountCircle sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
+							}/>
+					</Box>
+					<Box sx={{ display: 'flex', alignItems: 'flex-end', margin: '0px; 20px', marginBottom: '20px' }}>
+						<FilledInput
+							id="outlined-adornment-password"
+							type={showPassword ? 'text' : 'password'}
+							endAdornment={
+								<InputAdornment position="end">
+									<IconButton
+										aria-label="toggle password visibility"
+										onClick={handleClickShowPassword}
+										onMouseDown={handleMouseDownPassword}
+										edge="end"
+									>
+										{showPassword ? <VisibilityOff /> : <Visibility />}
+									</IconButton>
+								</InputAdornment>
+							}
+							placeholder="Password"
 							name='password'
-							id='password'
 							value={password}
 							onChange={onInputChange}
 							required
-							autoComplete='off' />
-						<label htmlFor='password'>Contraseña:</label>
-					</div>
-				</CardContent>
-				<CardActions>
+							autoComplete='off'
+						/>
+					</Box>
 					<Button variant="contained" size="small" type='submit'>Iniciar Sesión</Button>
-
-				</CardActions>
+				</CardContent>
+					
 			</form>
 		</Card>
 	);
